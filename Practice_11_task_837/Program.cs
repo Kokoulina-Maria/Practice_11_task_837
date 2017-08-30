@@ -8,7 +8,7 @@ namespace Practice_11_task_837
 {
     class Program
     {
-        public const int N = 11;//размерность массива, можно поменять, если захотеть, просто по условию символов в строке 121
+        public const int N = 11;//размерность массива, можно поменять, если захотеть. Просто по условию символов в строке 121
 
         static char[,] MakeMas(string s)
         {//функция, переписывающая строку в массив построчно
@@ -96,6 +96,25 @@ namespace Practice_11_task_837
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Шифруем и расшифровываем строку");
+            do
+            {
+                string s="";//введеная пользователем строка
+                Console.WriteLine("Введите строку, состоящую из "+N*N+" элементов: ");
+                do
+                {
+                    s = Console.ReadLine();
+                } while (s.Length < N * N);
+
+                string line = "";//строка, с которой будет проводиться дальнейшая работа
+                for (int i=0; i<N*N; i++)//берем только первые 121 элемент из введеной строки
+                {
+                    line = line + s[i];
+                }
+                Console.WriteLine("1 - Расшифровать данный текст");
+                Console.WriteLine("2 - Расшифровать данный текст");
+                
+            } while (true);
         }
     }
 }
