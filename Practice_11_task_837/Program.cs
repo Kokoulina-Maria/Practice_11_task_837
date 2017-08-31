@@ -102,7 +102,7 @@ namespace Practice_11_task_837
                 Console.Write(msg);
                 ok = int.TryParse(Console.ReadLine(), out number);
                 if (!ok) Console.WriteLine("Неверный ввод! Введите натуральное число от 1 до 3!");
-                if ((number>3)||(number<1))
+                if ((ok)&&((number>3)||(number<1)))
                 {
                     ok = false;
                     Console.WriteLine("Неверный ввод! Введите натуральное число от 1 до 3!");
@@ -111,18 +111,30 @@ namespace Practice_11_task_837
             return (number);
         }
 
+        static bool OnlyLetters(string line)
+        {//функция, проверяющая, нет ли в веденой строке других символов, кроме букв
+            for (int i=0; i<N*N; i++)
+                if (!((line[i] >= 'A') && (line[i] <= 'Z') || (line[i] >= 'А') && (line[i] <= 'Я')||(line[i] >= 'a') && (line[i] <= 'z') || (line[i] >= 'а') && (line[i] <= 'я'))) return false;
+            return true;
+        }
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Шифруем и расшифровываем строку");
+            Console.WriteLine("Шифруем и расшифровываем строку из букв");
             do
             {
                 string s="";//введеная пользователем строка
                 Console.WriteLine("Введите строку, состоящую из "+N*N+" элементов: ");
+                bool ok=true;//переменная для проверки строки
                 do
                 {
                     s = Console.ReadLine();
-                    if (s.Length < N * N) Console.WriteLine("Вы ввели слишком короткую строку, в ней должно быть " + N * N + " символ! ");
-                } while (s.Length < N * N);
+                    if (s.Length < N * N)
+                        Console.WriteLine("Вы ввели слишком короткую строку, в ней должно быть " + N * N + " символ! ");
+                    if (!OnlyLetters(s)) Console.WriteLine("В строке должны быть только буквы!");
+                    if ((s.Length < N * N) || (!OnlyLetters(s))) ok = false;
+                    else ok = true;
+                } while (!ok);
 
                 string line = "";//строка, с которой будет проводиться дальнейшая работа
                 for (int i=0; i<N*N; i++)//берем только первые 121 элемент из введеной строки
