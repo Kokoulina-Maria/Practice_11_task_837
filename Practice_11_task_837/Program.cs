@@ -89,9 +89,26 @@ namespace Practice_11_task_837
                 //заканчиваем заполнять слой
                 min++;//увеличиваем минимальный индекс для нового слоя
                 max--;//уменьшаем максимальный индекс для нового слоя
-            } while (s != 0);
+            } while (s != -1);
             string text = MakeString(mas);
             return text;
+        }
+
+        static int ReadMenu(string msg)
+        {// Ввод натурального числа, для меню
+            int number; bool ok;// переменная для проверки
+            do
+            {
+                Console.Write(msg);
+                ok = int.TryParse(Console.ReadLine(), out number);
+                if (!ok) Console.WriteLine("Неверный ввод! Введите натуральное число от 1 до 3!");
+                if ((number>3)||(number<1))
+                {
+                    ok = false;
+                    Console.WriteLine("Неверный ввод! Введите натуральное число от 1 до 3!");
+                }
+            } while (!ok);// конец проверки
+            return (number);
         }
 
         static void Main(string[] args)
@@ -104,6 +121,7 @@ namespace Practice_11_task_837
                 do
                 {
                     s = Console.ReadLine();
+                    if (s.Length < N * N) Console.WriteLine("Вы ввели слишком короткую строку, в ней должно быть " + N * N + " символ! ");
                 } while (s.Length < N * N);
 
                 string line = "";//строка, с которой будет проводиться дальнейшая работа
@@ -111,9 +129,38 @@ namespace Practice_11_task_837
                 {
                     line = line + s[i];
                 }
-                Console.WriteLine("1 - Расшифровать данный текст");
-                Console.WriteLine("2 - Расшифровать данный текст");
-                
+                int menu=1;//переменная для ввода номера действия в меню
+                do//выводим меню до тех пор, пока не введут 3
+                {
+                    Console.WriteLine("1 - Зашифровать данный текст");
+                    Console.WriteLine("2 - Расшифровать данный текст");
+                    Console.WriteLine("3 - Ввести новую строку");
+                    menu = ReadMenu("Выберите номер действия:");
+                    switch (menu)
+                    {
+                        case 1://зашифровываем строку
+                            {
+                                string cipher = Encoding(line);
+                                Console.WriteLine("Зашифрованная строка: ");
+                                Console.WriteLine(cipher);
+                                line = cipher;
+                                break;
+                            }
+                        case 2://расшифровываем строку
+                            {
+                                string text = Decoding(line);
+                                Console.WriteLine("Расшифрованная строка: ");
+                                Console.WriteLine(text);
+                                line = text;
+                                break;
+                            }
+                        case 3://выходим из цикла, заново вводим строку
+                            {
+                                break;
+                            }
+                    }
+
+                } while (menu != 3);               
             } while (true);
         }
     }
