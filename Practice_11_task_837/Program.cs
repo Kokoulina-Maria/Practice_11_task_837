@@ -114,7 +114,7 @@ namespace Practice_11_task_837
         static bool OnlyLetters(string line)
         {//функция, проверяющая, нет ли в веденой строке других символов, кроме букв
             for (int i=0; i<N*N; i++)
-                if (!((line[i] >= 'A') && (line[i] <= 'Z') || (line[i] >= 'А') && (line[i] <= 'Я')||(line[i] >= 'a') && (line[i] <= 'z') || (line[i] >= 'а') && (line[i] <= 'я'))) return false;
+                if (!((line[i] >= 'A') && (line[i] <= 'Z') || (line[i] >= 'А') && (line[i] <= 'Я')||(line[i] >= 'a') && (line[i] <= 'z') || (line[i] >= 'а') && (line[i] <= 'я') || (line[i]=='ё') || (line[i] == 'Ё'))) return false;
             return true;
         }
 
@@ -131,7 +131,7 @@ namespace Practice_11_task_837
                     s = Console.ReadLine();
                     if (s.Length < N * N)
                         Console.WriteLine("Вы ввели слишком короткую строку, в ней должно быть " + N * N + " символ! ");
-                    if (!OnlyLetters(s)) Console.WriteLine("В строке должны быть только буквы!");
+                    else if (!OnlyLetters(s)) Console.WriteLine("В строке должны быть только буквы!");
                     if ((s.Length < N * N) || (!OnlyLetters(s))) ok = false;
                     else ok = true;
                 } while (!ok);
